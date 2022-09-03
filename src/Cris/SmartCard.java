@@ -12,5 +12,4 @@ public final class SmartCard extends MutekAutoCardDispenser{
 		SmartCardObj.ConnectDevice(0, 0, 0);
 	}
 	
-	
 }//public final class SmartCard end
