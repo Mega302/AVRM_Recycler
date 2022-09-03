@@ -24,39 +24,38 @@ import javax.smartcardio.TerminalFactory;
 //import de.intarsys.security.smartcard.pcsc.PCSCStatusMonitor.IStatusListener;
 
 import Cris.Currency;
-//import java.time.LocalDateTime;
-//import java.time.format.DateTimeFormatter;
+
 
 public final class TokenDispenser{
 
 
-       //private String DeviceId=null;
-       private volatile boolean portbusy = false;
-       //private volatile boolean flag_tokenUnpaid = false;
-       public final static char[] hexArray = "0123456789ABCDEF".toCharArray();
-       private byte HopperAddress = 0;
-       private byte tokenCounter = 0;
-       private byte tokenRemain = 0;
-       private byte tokenPaid = 0;
-       private byte tokenUnpaid = 0;
-       private final int timeout = 5;//10;//20;
-       private volatile int rtvalue = 10;
-       private volatile byte[] returnarray = {(byte)10, (byte)10, (byte)10, (byte)10, (byte)10, (byte)10, (byte)10};
-       private volatile byte[] returnReaderArray;
-       //private volatile byte[] returnarray = null;
-       private volatile boolean timeoutFlag = false;
-       private volatile byte[] rtByte = {(byte)10, (byte)10, (byte)10, (byte)10, (byte)10, (byte)10, (byte)10, (byte)10, (byte)10};
-       private int counter = 0;
-	   private boolean conct_flag = false;
-	   private boolean readercnctFlag = false;
-	   private TerminalFactory terminalFactory_obj;
-	   private List<CardTerminal> cardTerminals;
+        //private String DeviceId=null;
+        private volatile boolean portbusy = false;
+        //private volatile boolean flag_tokenUnpaid = false;
+        public final static char[] hexArray = "0123456789ABCDEF".toCharArray();
+        private byte HopperAddress = 0;
+        private byte tokenCounter = 0;
+        private byte tokenRemain = 0;
+        private byte tokenPaid = 0;
+        private byte tokenUnpaid = 0;
+        private final int timeout = 5;//10;//20;
+        private volatile int rtvalue = 10;
+        private volatile byte[] returnarray = {(byte)10, (byte)10, (byte)10, (byte)10, (byte)10, (byte)10, (byte)10};
+        private volatile byte[] returnReaderArray;
+        //private volatile byte[] returnarray = null;
+        private volatile boolean timeoutFlag = false;
+        private volatile byte[] rtByte = {(byte)10, (byte)10, (byte)10, (byte)10, (byte)10, (byte)10, (byte)10, (byte)10, (byte)10};
+        private int counter = 0;
+	    private boolean conct_flag = false;
+	    private boolean readercnctFlag = false;
+	    private TerminalFactory terminalFactory_obj;
+	    private List<CardTerminal> cardTerminals;
 		private CardTerminal contactless_cardTerminal_obj;
 		private CardTerminal SAM1_cardTerminal_obj;
 		private CardTerminal SAM2_cardTerminal_obj;
 		private Card card_obj;
 		private CardChannel cardChannel_obj;
-	   private static final String DeviceId = "TKN";
+	    private static final String DeviceId = "TKN";
 		private static final int TRACE = 41;
         private static final int DEBUG = 42;
         private static final int INFO = 43;
@@ -445,8 +444,8 @@ public final class TokenDispenser{
 		  return (byte)CHKSUM;
         }
 
-        public static String bytesToHex(byte[] bytes) 
-        {
+       public static String bytesToHex(byte[] bytes) 
+       {
 			char[] hexChars = new char[bytes.length * 2];
 			for ( int j = 0; j < bytes.length; j++ ) 
 			{
@@ -457,26 +456,24 @@ public final class TokenDispenser{
 			return new String(hexChars);
         }// public static String bytesToHex(byte[] bytes) end
 
-		private void setFlagValue(boolean value)
-		{
+	   private void setFlagValue(boolean value)
+	   {
 			synchronized(this){
 				timeoutFlag = value;
 			//TokenReader_Log("[TokenDispenser] [setFlagValue()] falg value is "+timeoutFlag);
 			}
 		}// private void setFlagValue(boolean value) end
 		
-		private boolean getFlagValue()
-		{
+	   private boolean getFlagValue()
+	   {
 			synchronized(this){
 				//TokenReader_Log("[TokenDispenser] [getFlagValue()] falg value is "+timeoutFlag);
 				return timeoutFlag;
 			}
-		}// private boolean getFlagValue() end
-	   
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	   }// private boolean getFlagValue() end
 
-		public final String GetNativeLibVersion()
-		{
+	   public final String GetNativeLibVersion()
+	   {
 			/*	Issue/Reject is determined if issue/reject bit on. 
 			 *  Status of other bit is not considered.
 			 *  Date 05-02-2020
@@ -513,15 +510,14 @@ public final class TokenDispenser{
 			return "03.02.00";
 		}// public final String GetNativeLibVersion() end
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**
-  Method Name:ConnectDevice
-  Return Type:int
-  Channel Clearance Mode: 0-Retain in the channel, 1-Send to rejection bin, 2-Send to dispensing outlet of the device.
-  Return Value: 0-Device connected successfully, 1-Port doesn't exist', 28-Communication failure, 3-Channel clearance failed due to rejection bin is full, 
-  4-Channel clearance failed due to channel is blocked, 5- Channel clearance failed due to unknown reason
-*/
+		/**
+		  Method Name:ConnectDevice
+		  Return Type:int
+		  Channel Clearance Mode: 0-Retain in the channel, 1-Send to rejection bin, 2-Send to dispensing outlet of the device.
+		  Return Value: 0-Device connected successfully, 1-Port doesn't exist', 28-Communication failure, 3-Channel clearance failed due to rejection bin is full, 
+		  4-Channel clearance failed due to channel is blocked, 5- Channel clearance failed due to unknown reason
+		*/
        
 		
 		public final int ConnectDevice(int PortId, int ChannelClearanceMode, int Timeout)
@@ -950,13 +946,12 @@ public final class TokenDispenser{
 			synchronized(this){
 				conct_flag = flag;}
 		}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**
-  Method Name:DisConnectDevice
-  Return Type:int
-  Return Value: 0-Device disconnected successfully, 28-Communication failure
-*/
+		/**
+		  Method Name:DisConnectDevice
+		  Return Type:int
+		  Return Value: 0-Device disconnected successfully, 28-Communication failure
+		*/
 
 	public final int DisConnectDevice(int Timeout)
 	{
@@ -1061,15 +1056,13 @@ public final class TokenDispenser{
 			}
 			
 	}// public synchronized int DisConnectDevice() end
-	
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**
-  Method Name:GetDeviceStatus
-  Return Type:int
-  Return Value: 0-Operation successfull, 28-Communication failure, 2-Channel blocked, 3-No token found in channel
-  		4-Operation timeout occured  
-*/
+	/**
+	  Method Name:GetDeviceStatus
+	  Return Type:int
+	  Return Value: 0-Operation successfull, 28-Communication failure, 2-Channel blocked, 3-No token found in channel
+	  		4-Operation timeout occured  
+	*/
 	
 	public final byte[] GetDeviceStatus(int ComponentId, int Timeout)
 	{
@@ -1641,14 +1634,13 @@ public final class TokenDispenser{
 		byte[] abc = new byte[8];
 		return abc;
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**
-  Method Name:DispanseTokenPhase1
-  Return Type:int
-  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-Specified box empty
-  		4-Operation timeout occured, 5-Other error
-*/
+	/**
+	  Method Name:DispanseTokenPhase1
+	  Return Type:int
+	  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-Specified box empty
+	  		4-Operation timeout occured, 5-Other error
+	*/
 	
 	public final int DispenseTokenPhase1(int BoxNo, int Timeout)
 	{
@@ -2049,15 +2041,13 @@ public final class TokenDispenser{
 			
 	}// public int DispanseTokenPhase1(int BoxNo, int Timeout) end
 	
-	
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**
-  Method Name:DispanseTokenPhase2
-  Return Type:int
-  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel
-  		4-Operation timeout occured  , 5-Other error
-*/
+	/**
+	  Method Name:DispanseTokenPhase2
+	  Return Type:int
+	  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel
+	  		4-Operation timeout occured  , 5-Other error
+	*/
 	
 	public final int DispenseTokenPhase2(int BoxNo, int TokenDest, int Timeout)
 	{	
@@ -2346,14 +2336,12 @@ public final class TokenDispenser{
 			//return 0;
 	}// public int DispanseTokenPhase2(int BoxNo, int TokenDest, int Timeout) end
 	
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/**
-  Method Name:EmptyTokenBox
-  Return Type:int
-  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel
-  		4-Operation timeout occured  
-*/
+	/**
+	  Method Name:EmptyTokenBox
+	  Return Type:int
+	  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel
+	  		4-Operation timeout occured  
+	*/
 	/*
 	public final int EmptyTokenBox(int BoxNo, int TokenDest, int Timeout)
 	{
@@ -2582,14 +2570,13 @@ public final class TokenDispenser{
 			//return 0;
 	}// public int EmptyTokenBox(int BoxNo, int TokenDest, int Timeout) end
 	
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**
-  Method Name:ClearJammedToken
-  Return Type:int
-  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel,
-  		4-Operation timeout occured
-*/
+	/**
+	  Method Name:ClearJammedToken
+	  Return Type:int
+	  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel,
+	  		4-Operation timeout occured
+	*/
 	public final int ClearJammedToken(int BoxNo, int TokenDest, int Timeout)
 	{
 		if(Timeout<=0)
@@ -2705,7 +2692,6 @@ public final class TokenDispenser{
 		TokenReader_Log(INFO, "FW Version "+"00.00.00");
 		return "00.00.00";
 	}//public final String GetDeviceFWVersion()
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public final int ResetDevice(int timeout){
 		int rt = 0;
@@ -2786,13 +2772,13 @@ public final class TokenDispenser{
 		}
 	}//public final int ResetDevice() end
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/**
-  Method Name:ConnectReaderDevice
-  Return Type:int
-  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel,
-  		4-Operation timeout occured
-*/
+
+	/**
+	  Method Name:ConnectReaderDevice
+	  Return Type:int
+	  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel,
+	  		4-Operation timeout occured
+	*/
 	
 	public final int ConnectDeviceReader(int DeviceId, int PortId, int Timeout)
 	{
@@ -2948,12 +2934,12 @@ public final class TokenDispenser{
 		}
 	}// private synchronized boolean getReaderFlag() end
 
-/**
-  Method Name:ActivateCard
-  Return Type:byte[]
-  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel,
-  		4-Operation timeout occured
-*/
+	/**
+	  Method Name:ActivateCard
+	  Return Type:byte[]
+	  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel,
+	  		4-Operation timeout occured
+	*/
 	
 	public final byte [] ActivateCard(int DeviceId, int CardTechType,int SAMSlotId, int Timeout)
 	{
@@ -3188,12 +3174,12 @@ public final class TokenDispenser{
 		}
 	}// public synchronized byte [] ActivateCard(int DeviceId, int CardTechType,int SAMSlotId, int Timeout) end
 	
-/**
-  Method Name:SAMSlotPowerOnOff
-  Return Type:int
-  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel,
-  		4-Operation timeout occured
-*/
+	/**
+	  Method Name:SAMSlotPowerOnOff
+	  Return Type:int
+	  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel,
+	  		4-Operation timeout occured
+	*/
 	public final int SAMSlotPowerOnOff(int DeviceId, int SAMSlotId,int PowerOnOffState, int Timeout)
 	{
 		if(Timeout<=0)
@@ -3280,12 +3266,12 @@ public final class TokenDispenser{
 		}
 	}//public synchronized finalint SAMSlotPowerOnOff() end
 
-/**
-  Method Name:ResetSAM
-  Return Type:byte[]
-  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel,
-  		4-Operation timeout occured
-*/	
+	/**
+	  Method Name:ResetSAM
+	  Return Type:byte[]
+	  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel,
+	  		4-Operation timeout occured
+	*/	
 	public final byte [] ResetSAM(int DeviceId, int SAMSlotId, int ResetType, int Timeout)
 	{
 		returnReaderArray = new byte[10];
@@ -3453,12 +3439,12 @@ public final class TokenDispenser{
 		*/
 	}//public synchronized final byte [] ResetSAM() end
 	
-/**
-  Method Name:DeactivateCard
-  Return Type:int
-  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel,
-  		4-Operation timeout occured
-*/
+	/**
+	  Method Name:DeactivateCard
+	  Return Type:int
+	  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel,
+	  		4-Operation timeout occured
+	*/
 	public final int DeactivateCard(int DeviceId, int CardTechType, int SAMSlotId, int Timeout)
 	{
 		if(Timeout<=0)
@@ -3578,13 +3564,12 @@ public final class TokenDispenser{
 		}
 	}// public synchronized final int DeactivateCard(int DeviceId, int CardTechType,int SAMSlotId,int Timeout) end
 	
-/**
-  Method Name:ReadUltralightBlock
-  Return Type:byte[]
-  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel,
-  		4-Operation timeout occured
-*/
-
+	/**
+	  Method Name:ReadUltralightBlock
+	  Return Type:byte[]
+	  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel,
+	  		4-Operation timeout occured
+	*/
 	public final byte[] ReadUltralightBlock(int DeviceId, int Addr, int Timeout)
 	{
 		for(int in=0; in<readULBLOCKreturnarray.length; in++)
@@ -3795,13 +3780,12 @@ public final class TokenDispenser{
         * */
     }
     
-/**
-  Method Name:WriteUltralightPage
-  Return Type:int
-  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel,
-  		4-Operation timeout occured
-*/
-
+	/**
+	  Method Name:WriteUltralightPage
+	  Return Type:int
+	  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel,
+	  		4-Operation timeout occured
+	*/
     public final int WriteUltralightPage(int DeviceId, int Addr, byte[] Data, int Timeout)
 	{
 		TokenReader_Log(DEBUG, "[WriteUltralightPage()] Entry.");
@@ -3922,12 +3906,12 @@ public final class TokenDispenser{
 		//return 31;
 	}//private synchronized final int WriteUltralightPage(int DeviceId, int Addr, byte[] Data) end
 	
-/**
-  Method Name:DisConnectReaderDevice
-  Return Type:int
-  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel,
-  		4-Operation timeout occured
-*/
+	/**
+	  Method Name:DisConnectReaderDevice
+	  Return Type:int
+	  Return Value: 0-Operation successfull, 1-Communication failure, 2-Channel blocked, 3-No token found in channel,
+	  		4-Operation timeout occured
+	*/
 	public final int DisConnectDeviceReader(int DeviceId, int Timeout)
 	{
 		if(Timeout<=0)
@@ -4020,308 +4004,310 @@ public final class TokenDispenser{
 		}
 		//return 31;
 	}//private synchronized final int DisConnectReaderDevice(int DeviceId) end
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//++New SmartCard Implement
-//https://ludovicrousseau.blogspot.com/2020/04/pcsc-sample-in-java-using-intarsys.html
-
-//ATR Website:
-//https://pyscard.sourceforge.io/user-guide.html#requesting-a-card-by-atr
-//https://www.cardlogix.com/glossary/atr-answer-to-reset-smart-card/
-/*
- 	    private static final int SUCCESS                                        = 0;
-		private static final int DEVICE_ALREADY_CONNECTED   = 20;
-		private static final int OPERATION_TIMEOUT 				  = 18;
-		private static final int  PORT_DOESNOT_EXIST               = 25;
-		private static final int COMMUNICATION_FAILURE        = 28;
-		private static final int OTHER_ERROR                              = 31;
+	
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//++New SmartCard Implement
+	//https://ludovicrousseau.blogspot.com/2020/04/pcsc-sample-in-java-using-intarsys.html
+	
+	//ATR Website:
+	//https://pyscard.sourceforge.io/user-guide.html#requesting-a-card-by-atr
+	//https://www.cardlogix.com/glossary/atr-answer-to-reset-smart-card/
+	
+	 	    //private static final int SUCCESS                                        = 0;
+			//private static final int DEVICE_ALREADY_CONNECTED   = 20;
+			//private static final int OPERATION_TIMEOUT 				  = 18;
+			//private static final int  PORT_DOESNOT_EXIST               = 25;
+			//private static final int COMMUNICATION_FAILURE        = 28;
+			//private static final int OTHER_ERROR                              = 31;
+			
+			//private IPCSCCardReader contact_reader=null;
+			//private IPCSCCardReader sam1_reader=null;
+			//private IPCSCCardReader sam2_reader=null;
+			 
+	 
+	  //++ Get ATR 
+	//https://github.com/intarsys/smartcard-io/blob/master/src/de/intarsys/security/smartcard/pcsc/PCSCCardReaderState.java
+	//https://raw.githubusercontent.com/intarsys/smartcard-io/master/examples/de/intarsys/security/smartcard/pcsc/Connect.java
+	//https://www.openscdp.org/scripts/tutorial/emv/resetatr.html
+	//http://ludovic.rousseau.free.fr/softwares/pcsc-tools/smartcard_list.txt
+	/*
+	private synchronized int ConnectDevice_intarsys(int DeviceId,int PortId){
 		
-		private IPCSCCardReader contact_reader=null;
-		private IPCSCCardReader sam1_reader=null;
-		private IPCSCCardReader sam2_reader=null;
-		 
- */
-  //++ Get ATR 
-//https://github.com/intarsys/smartcard-io/blob/master/src/de/intarsys/security/smartcard/pcsc/PCSCCardReaderState.java
-//https://raw.githubusercontent.com/intarsys/smartcard-io/master/examples/de/intarsys/security/smartcard/pcsc/Connect.java
-//https://www.openscdp.org/scripts/tutorial/emv/resetatr.html
-//http://ludovic.rousseau.free.fr/softwares/pcsc-tools/smartcard_list.txt
-/*
-private synchronized int ConnectDevice_intarsys(int DeviceId,int PortId){
-	
-	if(  ( null!= this.contact_reader ) && ( null!= this.sam1_reader )  && ( null!= this.sam2_reader ) )
-	{
-			System.out.println("[ConnectDevice_intarsys()] Device Already Connected");
-			return TokenDispenser.DEVICE_ALREADY_CONNECTED ;
-	}//if end
-	try {
-			this.context = null; 
-			this.connection = null;
-			this.readers  = null;
-			this.contact_reader = null;
-			this.sam1_reader	= null;
-			this.sam2_reader     = null;
-			this.current_reader = null;
-			this.g_atrBytes 		= null;
-			
-            //++Establish context 
-            this.context = PCSCContextFactory.get().establishContext();
-            //++Display the list of readers 
-            this.readers = context.listReaders();
-            for (IPCSCCardReader reader : readers) {
-                System.out.println("[ConnectDevice_intarsys()] found " + reader + " named " + reader.getName()+" id: "+reader.getId() );
-            }//for end
-            //Use the first reader
-            this.contact_reader= this.readers.get(0);
-            if(   null!= this.contact_reader ) {
-				System.out.println("[ConnectDevice_intarsys()] Contact Reader Connected Successfully");
-			}
-			else{
-				System.out.println("[ConnectDevice_intarsys()] Contact Reader Connected Failed");
-			}
-			//Use the first SAM reader
-			this.sam1_reader   = this.readers.get(1);
-			if(   null!= this.sam1_reader ) {
-				System.out.println("[ConnectDevice_intarsys()] SAM1 Connected Successfully");
-			}
-			else{
-				System.out.println("[ConnectDevice_intarsys()] SAM1 Connected Failed");
-			}
-			//Use the second SAM reader
-			this.sam2_reader   = this.readers.get(2);
-			if(   null!= this.sam2_reader ) {
-				System.out.println("[ConnectDevice_intarsys()] SAM2 Connected Successfully");
-			}
-			else{
-				System.out.println("[ConnectDevice_intarsys()] SAM2 Connected Failed");
-			}
-			if(  ( null!= this.contact_reader ) && ( null!= this.sam1_reader )  && ( null!= this.sam2_reader ) ){
-					System.out.println("[ConnectDevice_intarsys()] Device Connected Successfully");
-					return TokenDispenser.SUCCESS ;
-			}else{
-				   System.out.println("[ConnectDevice_intarsys()] Device Connected Failed");
-				   return TokenDispenser.OTHER_ERROR ;
-			}
-	}catch(PCSCException ex){
-		System.out.println("[ConnectDevice_intarsys()]  PCSCException Exception : "+ex.getMessage() );
-		return TokenDispenser.OTHER_ERROR ;
-	}//catch(PCSCException ex) end
-	
-}//public synchronized int ConnectDevice_intarsys(int DeviceId,int PortId,int Timeout) end
-
-public synchronized int DisConnectDevice_intarsys(int DeviceId,int Timeout){
-	//Release context 
-    try{
-		if( null!=this.connection ){
-				connection.disconnect(_IPCSC.SCARD_LEAVE_CARD);
+		if(  ( null!= this.contact_reader ) && ( null!= this.sam1_reader )  && ( null!= this.sam2_reader ) )
+		{
+				System.out.println("[ConnectDevice_intarsys()] Device Already Connected");
+				return TokenDispenser.DEVICE_ALREADY_CONNECTED ;
+		}//if end
+		try {
+				this.context = null; 
 				this.connection = null;
-		}
-		this.context .dispose();
-		this.context  = null;
-		this.current_reader=null;
-		System.out.println("[DisConnectDevice_intarsys()] Device  Disconnected Successfully");
-		return TokenDispenser.SUCCESS ;
-	}catch(PCSCException ex){
-		System.out.println("[DisConnectDevice_intarsys()]  PCSCException Exception : "+ex.getMessage() );
-		System.out.println("[DisConnectDevice_intarsys()]  Unable to deactivate device got exception" );
-		return TokenDispenser.OTHER_ERROR ;
-	}
-}//public synchronized int DisConnectDevice_intarsys(int DeviceId,int Timeout) end
-
-private synchronized byte[]  ActivateCard_intarsys(int DeviceId,int CardTechType,int SAMSlotId){
-			
-			System.out.println("[ActivateCard_intarsys()] Entry");
-			byte[] returnarray = new byte[10];
-			this.current_reader = null;
-			//++Card TechType is ContactLess
-			if(0 == CardTechType)
-			{
-				this.current_reader = this.contact_reader;
-			}
-			else if(1 == CardTechType) //++Card TechType is ContactCard
-			{
+				this.readers  = null;
+				this.contact_reader = null;
+				this.sam1_reader	= null;
+				this.sam2_reader     = null;
+				this.current_reader = null;
+				this.g_atrBytes 		= null;
 				
-				if(1 == SAMSlotId){
-					this.current_reader = this.sam1_reader;
-					//TokenReader_Log(DEBUG, "[ActivateCard_intarsys()] SAM1 "+terminal);
-				}
-				else if(2 == SAMSlotId){
-					this.current_reader =  this.sam2_reader;
-					//TokenReader_Log(DEBUG, "[ActivateCard_intarsys()] SAM2 "+terminal);
+	            //++Establish context 
+	            this.context = PCSCContextFactory.get().establishContext();
+	            //++Display the list of readers 
+	            this.readers = context.listReaders();
+	            for (IPCSCCardReader reader : readers) {
+	                System.out.println("[ConnectDevice_intarsys()] found " + reader + " named " + reader.getName()+" id: "+reader.getId() );
+	            }//for end
+	            //Use the first reader
+	            this.contact_reader= this.readers.get(0);
+	            if(   null!= this.contact_reader ) {
+					System.out.println("[ConnectDevice_intarsys()] Contact Reader Connected Successfully");
 				}
 				else{
-					//TokenReader_Log(ERROR, "[ActivateCard_intarsys()] Wrong SAMslot");
-					System.out.println("[ActivateCard_intarsys()] Wrong SAMslot");
-					returnarray[0]=(byte)31;
+					System.out.println("[ConnectDevice_intarsys()] Contact Reader Connected Failed");
+				}
+				//Use the first SAM reader
+				this.sam1_reader   = this.readers.get(1);
+				if(   null!= this.sam1_reader ) {
+					System.out.println("[ConnectDevice_intarsys()] SAM1 Connected Successfully");
+				}
+				else{
+					System.out.println("[ConnectDevice_intarsys()] SAM1 Connected Failed");
+				}
+				//Use the second SAM reader
+				this.sam2_reader   = this.readers.get(2);
+				if(   null!= this.sam2_reader ) {
+					System.out.println("[ConnectDevice_intarsys()] SAM2 Connected Successfully");
+				}
+				else{
+					System.out.println("[ConnectDevice_intarsys()] SAM2 Connected Failed");
+				}
+				if(  ( null!= this.contact_reader ) && ( null!= this.sam1_reader )  && ( null!= this.sam2_reader ) ){
+						System.out.println("[ConnectDevice_intarsys()] Device Connected Successfully");
+						return TokenDispenser.SUCCESS ;
+				}else{
+					   System.out.println("[ConnectDevice_intarsys()] Device Connected Failed");
+					   return TokenDispenser.OTHER_ERROR ;
+				}
+		}catch(PCSCException ex){
+			System.out.println("[ConnectDevice_intarsys()]  PCSCException Exception : "+ex.getMessage() );
+			return TokenDispenser.OTHER_ERROR ;
+		}//catch(PCSCException ex) end
+		
+	}//public synchronized int ConnectDevice_intarsys(int DeviceId,int PortId,int Timeout) end
+	
+	public synchronized int DisConnectDevice_intarsys(int DeviceId,int Timeout){
+		//Release context 
+	    try{
+			if( null!=this.connection ){
+					connection.disconnect(_IPCSC.SCARD_LEAVE_CARD);
+					this.connection = null;
+			}
+			this.context .dispose();
+			this.context  = null;
+			this.current_reader=null;
+			System.out.println("[DisConnectDevice_intarsys()] Device  Disconnected Successfully");
+			return TokenDispenser.SUCCESS ;
+		}catch(PCSCException ex){
+			System.out.println("[DisConnectDevice_intarsys()]  PCSCException Exception : "+ex.getMessage() );
+			System.out.println("[DisConnectDevice_intarsys()]  Unable to deactivate device got exception" );
+			return TokenDispenser.OTHER_ERROR ;
+		}
+	}//public synchronized int DisConnectDevice_intarsys(int DeviceId,int Timeout) end
+	
+	private synchronized byte[]  ActivateCard_intarsys(int DeviceId,int CardTechType,int SAMSlotId){
+				
+				System.out.println("[ActivateCard_intarsys()] Entry");
+				byte[] returnarray = new byte[10];
+				this.current_reader = null;
+				//++Card TechType is ContactLess
+				if(0 == CardTechType)
+				{
+					this.current_reader = this.contact_reader;
+				}
+				else if(1 == CardTechType) //++Card TechType is ContactCard
+				{
+					
+					if(1 == SAMSlotId){
+						this.current_reader = this.sam1_reader;
+						//TokenReader_Log(DEBUG, "[ActivateCard_intarsys()] SAM1 "+terminal);
+					}
+					else if(2 == SAMSlotId){
+						this.current_reader =  this.sam2_reader;
+						//TokenReader_Log(DEBUG, "[ActivateCard_intarsys()] SAM2 "+terminal);
+					}
+					else{
+						//TokenReader_Log(ERROR, "[ActivateCard_intarsys()] Wrong SAMslot");
+						System.out.println("[ActivateCard_intarsys()] Wrong SAMslot");
+						returnarray[0]=(byte)31;
+						return returnarray;
+					}
+				
+				}//if end
+				
+				//++Send UID command Set
+			    byte[] answer;
+	            byte[] command = {(byte)0xFF, (byte)0xCA, 0x00, 0x00, 0x00};
+	            this.connection = null;
+	            try{
+					this.connection = this.context.connect(this.current_reader.getName(), _IPCSC.SCARD_SHARE_SHARED,_IPCSC.SCARD_PROTOCOL_Tx);
+				}catch(PCSCException ex){
+					System.out.println("[ActivateCard_intarsys()] connect Reader failed");
+					returnarray[0] = TokenDispenser.OTHER_ERROR;
 					return returnarray;
 				}
-			
-			}//if end
-			
-			//++Send UID command Set
-		    byte[] answer;
-            byte[] command = {(byte)0xFF, (byte)0xCA, 0x00, 0x00, 0x00};
-            this.connection = null;
-            try{
-				this.connection = this.context.connect(this.current_reader.getName(), _IPCSC.SCARD_SHARE_SHARED,_IPCSC.SCARD_PROTOCOL_Tx);
-			}catch(PCSCException ex){
-				System.out.println("[ActivateCard_intarsys()] connect Reader failed");
-				returnarray[0] = TokenDispenser.OTHER_ERROR;
-				return returnarray;
-			}
-			
-			//Add Event Monitor Card Detection
-            this.monitor = null;
-            this.monitor = new PCSCStatusMonitor(this.current_reader);
-			this.monitor.addStatusListener(new IStatusListener() {
 				
-				@Override
-				public void onException(IPCSCCardReader reader, PCSCException e) {
-					System.out.println("[ActivateCard_intarsys()][onException()] "+e.getMessage() );
-				}//public void onException() end
-
-				@Override
-				public void onStatusChange(IPCSCCardReader reader, PCSCCardReaderState cardReaderState) 
-				{
-					System.out.println("[ActivateCard_intarsys()]  [onException()] Reader " + cardReaderState.getReader()+ " state " + cardReaderState);
-					g_atrBytes = null;
-					g_atrBytes = cardReaderState.getATR() ;
-					if( null != g_atrBytes )
-					{
-						System.out.println("[ActivateCard_intarsys][onStatusChange()]  Attr Bytes Length: "+g_atrBytes.length );
-						System.out.println("[ActivateCard_intarsys][onStatusChange()]  ATR Bytes");
-						for (int counter=0; counter<g_atrBytes.length; counter++) {
-							System.out.print(String.format("%02X ", g_atrBytes[counter]));
-						}//for end
-						System.out.println("");
-					}//if end
-					/*if (cardReaderState.isPresent()) 
-					{
-						try {
-							monitor.stop();
-							connect(reader);
-						} catch (PCSCException e) {
-							e.printStackTrace();
-						}
-					}*//*
-				}//public void onStatusChange() end
-				
-			});//this.monitor.addStatusListener() end
-			
-			//++Now Wait for some times
-			try{
-				Thread.sleep(100);
-			}catch(Exception ex){
-				
-			}
-			
-			//++Now analysis of ATR bytes for get token types(incomplete)
-			if( null!= g_atrBytes ){
-				
-			}else{
-				//++Byte 0: Operation Status Code
-				System.out.println("[ActivateCard_intarsys()]  NO ATR Bytes Receieved");
-				returnarray[0] = TokenDispenser.OTHER_ERROR ;
-				return returnarray;
-			}
-			
-            //++Send & Recv Command And Reply Bytes[ UID Bytes]
-            try{
-				answer = this.connection.transmit(command, 0, command.length, 256, false);
-            }catch(PCSCException ex){
-				System.out.println("[ActivateCard_intarsys()] UID Command Transmit failed");
-				returnarray[0] = TokenDispenser.OTHER_ERROR;
-				return returnarray;
-			}
-            System.out.println("[ActivateCard_intarsys()] UID Bytes length: " + answer.length + " bytes");
-            for (int i=0; i<answer.length; i++) {
-                System.out.print(String.format("%02X ", answer[i]));
-            }//for end
-            System.out.println();
-            
-			//++Byte 0: Operation Status Code
-			returnarray[0] = TokenDispenser.SUCCESS ; //Success or any other code
-			
-			//++Byte 2: Type of Token Found
-			returnarray[1] = 0x00 ; //Token type
-			
-			//++Byte 3: Size of UID
-			returnarray[2] = 0x00 ; //Token UID byte Length
-			
-			//++Byte 3-9: UID bytes
-			//Token UID bytes
-			returnarray[3] = 0x00;
-			returnarray[4] = 0x00;
-			returnarray[5] = 0x00;
-			returnarray[6] = 0x00;
-			returnarray[7] = 0x00;
-			returnarray[8] = 0x00;
-			returnarray[9] = 0x00;
-			System.out.println("[ActivateCard_intarsys()]  Exit");
-			return returnarray;
-			
-}//byte[]  ActivateCard_intarsys(int DeviceId,int CardTechType,int SAMSlotId,int Timeout) end
-
-public synchronized int  DeActivateCard_intarsys(int DeviceId,int CardTechType,int SAMSlotId,int Timeout){
-	try{
-		connection.disconnect(_IPCSC.SCARD_LEAVE_CARD);
-	}catch(PCSCException ex){
-		
-	}
-	return 0;
-}
-
-public synchronized byte[]  ReadUltralightBlock_intarsys(int DeviceId,int Addr,int Timeout){
+				//Add Event Monitor Card Detection
+	            this.monitor = null;
+	            this.monitor = new PCSCStatusMonitor(this.current_reader);
+				this.monitor.addStatusListener(new IStatusListener() {
+					
+					@Override
+					public void onException(IPCSCCardReader reader, PCSCException e) {
+						System.out.println("[ActivateCard_intarsys()][onException()] "+e.getMessage() );
+					}//public void onException() end
 	
-	byte[] command = {(byte) 0xFF , (byte) 0xB0 , 0x00 , (byte) 0x01 , (byte) 0x10};
-	
-	byte[] reply;
-	try{
-		reply = connection.transmit(command, 0, command.length, 256, false);
-		if (reply != null){
-		System.out.println("[ReadUltralightBlock_intarsys]  reply Bytes Length: "+reply.length );
-							System.out.println("[ReadUltralightBlock_intarsys] reply Bytes : ");
-							for (int counter=0; counter<reply.length; counter++) {
-								System.out.print(String.format("%02X ", reply[counter]));
+					@Override
+					public void onStatusChange(IPCSCCardReader reader, PCSCCardReaderState cardReaderState) 
+					{
+						System.out.println("[ActivateCard_intarsys()]  [onException()] Reader " + cardReaderState.getReader()+ " state " + cardReaderState);
+						g_atrBytes = null;
+						g_atrBytes = cardReaderState.getATR() ;
+						if( null != g_atrBytes )
+						{
+							System.out.println("[ActivateCard_intarsys][onStatusChange()]  Attr Bytes Length: "+g_atrBytes.length );
+							System.out.println("[ActivateCard_intarsys][onStatusChange()]  ATR Bytes");
+							for (int counter=0; counter<g_atrBytes.length; counter++) {
+								System.out.print(String.format("%02X ", g_atrBytes[counter]));
+							}//for end
+							System.out.println("");
+						}//if end
+						/*if (cardReaderState.isPresent()) 
+						{
+							try {
+								monitor.stop();
+								connect(reader);
+							} catch (PCSCException e) {
+								e.printStackTrace();
 							}
-							System.out.print("\n");
-		}
-	}catch(PCSCException ex){
-		System.out.println("[ReadUltralightBlock_intarsys]  Write Token Faild");
-	}
-	return null;
-}
-
-public synchronized int  WriteUltralightPage_intarsys(int DeviceId,int Addr,byte[] Data,int Timeout){
-	
-			byte [] SendBuff = new byte[9];
-			SendBuff[0] = (byte)0xFF; //CLA
-			SendBuff[1] = (byte)0xD6; //INS //B1
-			SendBuff[2] = 0x00; //P1
-			SendBuff[3] = (byte)Addr;     //P2
-			SendBuff[4] = 0x04;             //Le ox00
-			System.arraycopy(Data, 0, SendBuff, 5, 4);
-			System.out.println("[WriteUltralightPage_intarsys] Command Bytes: ");
-			for (int counter=0; counter<SendBuff.length; counter++) {
-				System.out.print(String.format("%02X ", SendBuff[counter]));
-			}
-			byte[] reply;
-			try{
-				reply = connection.transmit(SendBuff, 0, SendBuff.length, 256, false);
-				if (reply != null){
-					System.out.println("[WriteUltralightPage_intarsys] reply Bytes Length: "+reply.length );
-					System.out.println("[WriteUltralightPage_intarsys]  reply Bytes : ");
-					for (int counter=0; counter<reply.length; counter++) {
-						System.out.print(String.format("%02X ", reply[counter]));
-					}
-					System.out.print("\n");
+						}*//*
+					}//public void onStatusChange() end
+					
+				});//this.monitor.addStatusListener() end
+				
+				//++Now Wait for some times
+				try{
+					Thread.sleep(100);
+				}catch(Exception ex){
+					
 				}
-			}catch(PCSCException ex){
-				System.out.println("[WriteUltralightPage_intarsys] Read Token Faild");
-			}
-			return 0;
+				
+				//++Now analysis of ATR bytes for get token types(incomplete)
+				if( null!= g_atrBytes ){
+					
+				}else{
+					//++Byte 0: Operation Status Code
+					System.out.println("[ActivateCard_intarsys()]  NO ATR Bytes Receieved");
+					returnarray[0] = TokenDispenser.OTHER_ERROR ;
+					return returnarray;
+				}
+				
+	            //++Send & Recv Command And Reply Bytes[ UID Bytes]
+	            try{
+					answer = this.connection.transmit(command, 0, command.length, 256, false);
+	            }catch(PCSCException ex){
+					System.out.println("[ActivateCard_intarsys()] UID Command Transmit failed");
+					returnarray[0] = TokenDispenser.OTHER_ERROR;
+					return returnarray;
+				}
+	            System.out.println("[ActivateCard_intarsys()] UID Bytes length: " + answer.length + " bytes");
+	            for (int i=0; i<answer.length; i++) {
+	                System.out.print(String.format("%02X ", answer[i]));
+	            }//for end
+	            System.out.println();
+	            
+				//++Byte 0: Operation Status Code
+				returnarray[0] = TokenDispenser.SUCCESS ; //Success or any other code
+				
+				//++Byte 2: Type of Token Found
+				returnarray[1] = 0x00 ; //Token type
+				
+				//++Byte 3: Size of UID
+				returnarray[2] = 0x00 ; //Token UID byte Length
+				
+				//++Byte 3-9: UID bytes
+				//Token UID bytes
+				returnarray[3] = 0x00;
+				returnarray[4] = 0x00;
+				returnarray[5] = 0x00;
+				returnarray[6] = 0x00;
+				returnarray[7] = 0x00;
+				returnarray[8] = 0x00;
+				returnarray[9] = 0x00;
+				System.out.println("[ActivateCard_intarsys()]  Exit");
+				return returnarray;
+				
+	}//byte[]  ActivateCard_intarsys(int DeviceId,int CardTechType,int SAMSlotId,int Timeout) end
+	
+	public synchronized int  DeActivateCard_intarsys(int DeviceId,int CardTechType,int SAMSlotId,int Timeout){
+		try{
+			connection.disconnect(_IPCSC.SCARD_LEAVE_CARD);
+		}catch(PCSCException ex){
 			
-}//public synchronized int  WriteUltralightPage_intarsys(int DeviceId,int Addr,byte[] Data,int Timeout) end
-* */
+		}
+		return 0;
+	}
+	
+	public synchronized byte[]  ReadUltralightBlock_intarsys(int DeviceId,int Addr,int Timeout){
+		
+		byte[] command = {(byte) 0xFF , (byte) 0xB0 , 0x00 , (byte) 0x01 , (byte) 0x10};
+		
+		byte[] reply;
+		try{
+			reply = connection.transmit(command, 0, command.length, 256, false);
+			if (reply != null){
+			System.out.println("[ReadUltralightBlock_intarsys]  reply Bytes Length: "+reply.length );
+								System.out.println("[ReadUltralightBlock_intarsys] reply Bytes : ");
+								for (int counter=0; counter<reply.length; counter++) {
+									System.out.print(String.format("%02X ", reply[counter]));
+								}
+								System.out.print("\n");
+			}
+		}catch(PCSCException ex){
+			System.out.println("[ReadUltralightBlock_intarsys]  Write Token Faild");
+		}
+		return null;
+	}
+	
+	public synchronized int  WriteUltralightPage_intarsys(int DeviceId,int Addr,byte[] Data,int Timeout){
+		
+				byte [] SendBuff = new byte[9];
+				SendBuff[0] = (byte)0xFF; //CLA
+				SendBuff[1] = (byte)0xD6; //INS //B1
+				SendBuff[2] = 0x00; //P1
+				SendBuff[3] = (byte)Addr;     //P2
+				SendBuff[4] = 0x04;             //Le ox00
+				System.arraycopy(Data, 0, SendBuff, 5, 4);
+				System.out.println("[WriteUltralightPage_intarsys] Command Bytes: ");
+				for (int counter=0; counter<SendBuff.length; counter++) {
+					System.out.print(String.format("%02X ", SendBuff[counter]));
+				}
+				byte[] reply;
+				try{
+					reply = connection.transmit(SendBuff, 0, SendBuff.length, 256, false);
+					if (reply != null){
+						System.out.println("[WriteUltralightPage_intarsys] reply Bytes Length: "+reply.length );
+						System.out.println("[WriteUltralightPage_intarsys]  reply Bytes : ");
+						for (int counter=0; counter<reply.length; counter++) {
+							System.out.print(String.format("%02X ", reply[counter]));
+						}
+						System.out.print("\n");
+					}
+				}catch(PCSCException ex){
+					System.out.println("[WriteUltralightPage_intarsys] Read Token Faild");
+				}
+				return 0;
+				
+	}//public synchronized int  WriteUltralightPage_intarsys(int DeviceId,int Addr,byte[] Data,int Timeout) end
+	* */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -5754,9 +5740,9 @@ public synchronized int  WriteUltralightPage_intarsys(int DeviceId,int Addr,byte
 		}
 	}// private synchronized final int RequestEquipmentCatagory() end
 	
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//			Path Controller Command
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//			Path Controller Command
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	private synchronized final int getPathStatus()
 	{
@@ -6311,8 +6297,6 @@ public synchronized int  WriteUltralightPage_intarsys(int DeviceId,int Addr,byte
 						return "00.00.00";
 				}
 	}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	
 	
 	private final int isTokeninStagingArea()
 	{
